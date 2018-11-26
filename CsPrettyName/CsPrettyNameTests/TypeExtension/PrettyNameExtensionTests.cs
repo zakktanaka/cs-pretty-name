@@ -13,6 +13,17 @@ namespace CsPrettyName.TypeExtension.Tests
     {
         enum Hoge { A,B,}
 
+        class Fuga
+        {
+            public Fuga(double[] y, IEnumerable<bool> z)
+            {
+            }
+
+            public Fuga(int x, double[] y, IEnumerable<bool> z)
+            {
+            }
+        }
+
         [TestMethod()]
         public void PrettyNameTest()
         {
@@ -25,6 +36,21 @@ namespace CsPrettyName.TypeExtension.Tests
             Assert.AreEqual("CsPrettyName.TypeExtension.Tests.Hoge", typeof(Hoge).PrettyName());
             Assert.AreEqual("System.Tuple", typeof(Tuple).PrettyName());
             Assert.AreEqual("System.Tuple<CsPrettyName.TypeExtension.Tests.Hoge, System.Collections.Generic.IEnumerable<double?[]>>", typeof(Tuple<Hoge, IEnumerable<double?[]>>).PrettyName());
+        }
+
+        [TestMethod()]
+        public void ConstructorTest()
+        {
+            var type = typeof(Fuga);
+            foreach(var c in type.GetConstructors())
+            {
+                Console.WriteLine(type.PrettyName());
+                foreach(var a in c.GetParameters())
+                {
+                    Console.WriteLine($"{a.ParameterType.PrettyName()} {a.Name}");
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
