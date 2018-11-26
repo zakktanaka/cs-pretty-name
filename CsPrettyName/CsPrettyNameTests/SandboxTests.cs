@@ -124,6 +124,7 @@ namespace CsPrettyName.Tests
         interface IHoge { }
 
         [TestMethod()]
+        [Ignore]
         public void PrettyNameTest()
         {
             var r = new PrettyNameRepository();

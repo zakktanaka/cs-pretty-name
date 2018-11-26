@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="SandboxTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeExtension\PrettyNameExtensionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CsPrettyName\CsPrettyName.csproj">
