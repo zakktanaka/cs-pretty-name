@@ -71,24 +71,7 @@
 
         public static string PrettyName(this Type type)
         {
-            return ResolvePName(type);
-        }
-
-        private static string ResolvePName(Type type)
-        {
-            string pname;
-            if (!prettyNames.TryGetValue(type, out pname))
-            {
-                lock (prettyNames)
-                {
-                    if (!prettyNames.TryGetValue(type, out pname))
-                    {
-                        pname = BuildPName(type);
-                        prettyNames.TryAdd(type, pname);
-                    }
-                }
-            }
-            return pname;
+            return prettyNames.GetOrAdd(type, BuildPName);
         }
 
         private static string BuildPName(Type type)
@@ -108,13 +91,13 @@
                 var nu = Nullable.GetUnderlyingType(type);
                 if(nu != null)
                 {
-                    return string.Format($"{ResolvePName(nu)}?");
+                    return string.Format($"{PrettyName(nu)}?");
                 }
                 else
                 {
                     var gpname = tp.Substring(0, tp.IndexOf("`"));
                     var gargs = type.GetGenericArguments();
-                    return gpname + "<" + string.Join(", ", gargs.Select(ResolvePName)) + ">";
+                    return gpname + "<" + string.Join(", ", gargs.Select(PrettyName)) + ">";
                 }
             }
         }
