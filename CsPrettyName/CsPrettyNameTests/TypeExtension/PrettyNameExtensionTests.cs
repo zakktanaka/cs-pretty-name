@@ -36,6 +36,8 @@ namespace CsPrettyName.TypeExtension.Tests
             Assert.AreEqual("CsPrettyName.TypeExtension.Tests.Hoge", typeof(Hoge).PrettyName());
             Assert.AreEqual("System.Tuple", typeof(Tuple).PrettyName());
             Assert.AreEqual("System.Tuple<CsPrettyName.TypeExtension.Tests.Hoge, System.Collections.Generic.IEnumerable<double?[]>>", typeof(Tuple<Hoge, IEnumerable<double?[]>>).PrettyName());
+            Assert.AreEqual("CsPrettyName.TypeExtension.Tests.Hoge?", typeof(Hoge?).PrettyName());
+            Assert.AreEqual("System.DateTime?", typeof(DateTime?).PrettyName());
         }
 
         [TestMethod()]

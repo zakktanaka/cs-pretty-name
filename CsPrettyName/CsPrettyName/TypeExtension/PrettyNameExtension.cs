@@ -105,9 +105,17 @@
             }
             else
             {
-                var gpname = tp.Substring(0, tp.IndexOf("`"));
-                var gargs = type.GetGenericArguments();
-                return gpname + "<" + string.Join(", ", gargs.Select(ResolvePName)) + ">";
+                var nu = Nullable.GetUnderlyingType(type);
+                if(nu != null)
+                {
+                    return string.Format($"{ResolvePName(nu)}?");
+                }
+                else
+                {
+                    var gpname = tp.Substring(0, tp.IndexOf("`"));
+                    var gargs = type.GetGenericArguments();
+                    return gpname + "<" + string.Join(", ", gargs.Select(ResolvePName)) + ">";
+                }
             }
         }
     }
